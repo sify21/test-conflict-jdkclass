@@ -1,0 +1,38 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass = 'test.conflict.jdkclass.App'
+}
+
+java { sourceCompatibility = JavaVersion.VERSION_1_8 }
+
+jar {
+  manifest {
+    attributes(
+      'Class-Path': configurations.runtimeClasspath.collect { it.getName() }.join(' '),
+      'Main-Class': 'test.conflict.jdkclass.App'
+    )
+  }
+
+  // You can reference any part of the dependency configurations,
+  // and you can have as many from statements as you need
+  from configurations.runtimeClasspath
+  // I just copied them into the top of the jar, so it looks like the eclipse exported 
+  // runnable jar, but you could designate a lib directory, and reference that in the 
+  // classpath as "lib/$it.name" instead of it.getName()
+  into ''   
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
