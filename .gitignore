@@ -6,5 +6,6 @@ build
 
 # Ignore vim
 .vim
+.settings
 *.swp
 bin

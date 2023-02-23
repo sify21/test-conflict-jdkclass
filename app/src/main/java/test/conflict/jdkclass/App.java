@@ -3,6 +3,9 @@
  */
 package test.conflict.jdkclass;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.xpath.XPathFactory;
 
 public class App {
@@ -12,6 +15,8 @@ public class App {
 
     // java -Djaxp.debug
     public static void main(String[] args) {
+        Map<String, Long> m = new HashMap<>();
+        Long sum = m.values().stream().reduce(0L, Long::sum);
         XPathFactory.newInstance().newXPath();
         System.out.println(new App().getGreeting());
     }
